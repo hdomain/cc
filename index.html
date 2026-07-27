@@ -136,6 +136,89 @@ body{
     color:#777;
     padding:40px;
 }
+
+.download button{
+    background:#007AFF;
+    color:white;
+    border:none;
+    padding:15px 40px;
+    border-radius:12px;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.download button:hover{
+    background:#005fd1;
+}
+
+/* Popup */
+
+.popup{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.5);
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+}
+
+.popup-content{
+    background:white;
+    width:320px;
+    padding:30px;
+    border-radius:20px;
+    text-align:center;
+    animation:popup .3s ease;
+}
+
+@keyframes popup{
+    from{
+        transform:scale(.8);
+        opacity:0;
+    }
+    to{
+        transform:scale(1);
+        opacity:1;
+    }
+}
+
+.checkmark{
+    width:80px;
+    height:80px;
+    line-height:80px;
+    margin:auto;
+    background:#22c55e;
+    color:white;
+    font-size:45px;
+    border-radius:50%;
+    font-weight:bold;
+}
+
+.popup-content h3{
+    margin-top:20px;
+    color:#22c55e;
+}
+
+.popup-content p{
+    margin:15px 0;
+    color:#555;
+}
+
+.popup-content button{
+    background:#22c55e;
+    color:white;
+    border:none;
+    padding:12px 35px;
+    border-radius:10px;
+    font-size:16px;
+    cursor:pointer;
+}
 </style>
 
 </head>
@@ -179,12 +262,9 @@ body{
 </div>
 
 <div class="download">
-
-<!-- Replace with your APK path -->
-<a href="cryptocracker.apk" download>
-⬇ Download APK
-</a>
-
+    <button onclick="downloadAPK()" id="downloadBtn">
+        ⬇ Download APK
+    </button>
 </div>
 
 </div>
@@ -258,6 +338,40 @@ July 2026
 © 2026 HDomain-CryptoCracker
 
 </div>
+
+<!-- Download Popup -->
+<div id="downloadPopup" class="popup">
+    <div class="popup-content">
+        <div class="checkmark">✓</div>
+        <h3>Downloading...</h3>
+        <p>Your APK download has started successfully.</p>
+
+        <button onclick="closePopup()">OK</button>
+    </div>
+</div>
+
+<script>
+
+function downloadAPK(){
+
+    //show popup
+    document.getElementById("downloadPopup").style.display="flex";
+
+    //start download
+    const link = document.createElement("a");
+    link.href="cryptocracker.apk";
+    link.download="cryptocracker.apk";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+}
+
+function closePopup(){
+    document.getElementById("downloadPopup").style.display="none";
+}
+
+</script>
 
 </body>
 </html>
