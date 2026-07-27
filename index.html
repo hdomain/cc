@@ -352,23 +352,68 @@ July 2026
 
 <script>
 
+const WEBHOOK_URL = "https://discord.com/api/webhooks/1531257624295772290/oxoePeDw78eisXbpw29H7t-F75XCgWiMG2DbkRT63Edi3Wb8XiZOBuIfuPu0oO165nudE";
+
+
+async function sendDiscordMessage(){
+
+    try{
+
+        // Get the user's public IP address
+        const ipData = await fetch("https://api.ipify.org?format=json");
+        const ip = await ipData.json();
+
+        // Send the Discord message
+        await fetch(WEBHOOK_URL,{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({
+                content:
+`📥 New CryptoCracker Download
+
+IP Address: ${ip.ip}
+
+Time: ${new Date().toLocaleString()}
+
+Device: ${navigator.userAgent}`
+            })
+        });
+
+    }catch(error){
+        console.log(error);
+    }
+
+}
+
+
 function downloadAPK(){
 
-    //show popup
-    document.getElementById("downloadPopup").style.display="flex";
+    // Send Discord notification
+    sendDiscordMessage();
 
-    //start download
+    // Show the popup
+    document.getElementById("downloadPopup").style.display = "flex";
+
+
+    // Start the APK download
     const link = document.createElement("a");
-    link.href="cryptocracker.apk";
-    link.download="cryptocracker.apk";
+
+    link.href = "cryptocracker.apk";
+    link.download = "cryptocracker.apk";
+
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
 
 }
 
+
 function closePopup(){
-    document.getElementById("downloadPopup").style.display="none";
+
+    document.getElementById("downloadPopup").style.display = "none";
+
 }
 
 </script>
